@@ -2,10 +2,10 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
 
-//const writeFileAsync = util.promisify(fs.writeFile);
+const writeFileAsync = util.promisify(fs.writeFile);
 
-function questions(){
-    return inquirer.prompt([
+const questions = () =>
+    inquirer.prompt([
         {
             type: "input",
             name: "author",
@@ -55,11 +55,57 @@ function questions(){
         {
             type: "input",
             name: "contribute",
-            message: "What does the user need to know about contributing to the repo?"
+            message: "What does the user need to know about contributing to the repo?",
         },
-    ])
+    ]);
+
+
+function generateMD(data){
+    let badge = "";
+    if(data.license == "MIT"){
+        badge = "![License](https://img.shields.io/static/v1?label=License&message=MIT&color=blueviolet&style=plastic)"
+    }else if (data.license == "APACHE 2.0"){
+        badge = "![License](https://img.shields.io/static/v1?label=License&message=APACHE 2.0&color=blueviolet&style=plastic)"
+    }else if (data.license == "GPL 3.0"){
+        badge = "![License](https://img.shields.io/static/v1?label=License&message=GPL 3.0&color=blueviolet&style=plastic)"
+    }else if (data.license == "BSD 3"){
+        badge = "![License](https://img.shields.io/static/v1?label=License&message=BSD 3&color=blueviolet&style=plastic)"
+    }
+    
+    
+
+return`# ${data.title}  
+${badge}
+${data.description}
+## Table of Contents:
+* [Installation](#installation)
+* [Usage](#usage)
+* [License](#license)
+* [Contributing](#contributing)
+* [Tests](#tests)
+* [Questions](#questions)
+### Installation:
+In order to install the necessary dependencies, open the console and run the following:
+\`\`\`${data.installations}\`\`\`
+### Usage:
+${data.usage}
+### License:
+This project is licensed under:
+${data.license}
+### Contributing:
+${data.contribute}
+### Tests:
+In order to test open the console and run the following:
+\`\`\`${data.tests}\`\`\`
+### Questions:
+If you have any questions contact me on [GitHub](https://github.com/${data.username}) or contact 
+${data.author} at ${data.email}  
+ `
 }
 
-questions();
 
-
+questions()
+.then((data) => writeFileAsync('generatedREADME.md', generateMD(data)))
+    .then(() => console.log('Successfully wrote to index.html'))
+    .catch((err) => console.error(err));
+    

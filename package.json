@@ -1,14 +1,22 @@
 {
-  "name": "static-site",
+  "name": "make_me_read",
   "version": "1.0.0",
-  "description": "",
+  "description": "A a javascript prompted Readme.md document generator.\r ![Sample Page](https://...)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gcvarela21/Make_Me_Read.git"
+  },
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gcvarela21/Make_Me_Read/issues"
+  },
+  "homepage": "https://github.com/gcvarela21/Make_Me_Read#readme",
   "dependencies": {
-    "inquirer": "^6.3.1"
+    "inquirer": "^7.3.3"
   }
 }

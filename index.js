@@ -8,13 +8,8 @@ const questions = () =>
     inquirer.prompt([
         {
             type: "input",
-            name: "title",
-            message: "What is the Title or Name for your project?"
-        },
-        {
-            type: "input",
             name: "author",
-            message: "What is the Author's name?"
+            message: "What is the author's name?"
         },
         {
             type: "input",
@@ -25,6 +20,11 @@ const questions = () =>
             type: "input",
             name: "email",
             message: "What is your email address?"
+        },
+        {
+            type: "input",
+            name: "title",
+            message: "What is your project title?"
         },
         {
             type: "input",
@@ -44,43 +44,24 @@ const questions = () =>
         },
         {
             type: "input",
-            name: "installNotes",
-            message: "Is there any details the user needs in regard to the installation?"
-        },
-        {
-            type: "input",
             name: "tests",
             message: "What command should be run to run tests?"
         },
         {
             type: "input",
             name: "usage",
-            message: "What does the user need to know about using the repo? please write a detailed summary"
+            message: "What does the user need to know about using the repo?"
         },
         {
             type: "input",
             name: "contribute",
             message: "What does the user need to know about contributing to the repo?",
         },
-        {
-            type: "input",
-            name: "imgURL",
-            message: "Please provide and image URL that shows some detail about the project",
-        },
-        {
-            type: "input",
-            name: "repo",
-            message: "Please provide a URL link for your GitHub Reopsitory.",
-        },
-        {
-            type: "input",
-            name: "live",
-            message: "Please provide a URL link for this project's GitHub Page or live site URL.",
-        },
     ]);
 
 
 function generateMD(data){
+ 
     let badge = "";
     if(data.license == "MIT"){
         badge = "![License](https://img.shields.io/static/v1?label=License&message=MIT&color=blueviolet&style=plastic)"
@@ -92,26 +73,20 @@ function generateMD(data){
         badge = "![License](https://img.shields.io/static/v1?label=License&message=BSD3&color=blueviolet&style=plastic)"
     }
     
-    
-
 return`# ${data.title}  
 ${badge}
 ${data.description}
-[pageImage](${data.imgURL})
 ## Table of Contents:
 * [Installation](#installation)
-* [Summary](#summary)
+* [Usage](#usage)
 * [License](#license)
 * [Contributing](#contributing)
 * [Tests](#tests)
 * [Questions](#questions)
 ### Installation:
-Notes About the Install: ${data.installNotes}
-In order to install the necessary dependencies, open the console opem the project folder and run the following:
+In order to install the necessary dependencies, open the console and run the following:
 \`\`\`${data.installations}\`\`\`
-### Summary:
-You can find my project repository [Here](${data.repo})
-The Live Page for my site is [Here](${data.live})
+### Usage:
 ${data.usage}
 ### License:
 This project is licensed under:
@@ -130,6 +105,6 @@ ${data.author} at ${data.email}
 
 questions()
 .then((data) => writeFileAsync('generatedREADME.md', generateMD(data)))
-    .then(() => console.log('Successfully created/wrote to generateReadMe.md'))
+    .then(() => console.log('Successfully wrote to index.html'))
     .catch((err) => console.error(err));
     
